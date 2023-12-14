@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "destination": "Machu Picchu",
+    "country": "Peru",
+    "activity": "Hiking the Inca Trail",
+    "priority": "High",
+    "duration": "7 days",
+    "budget": "$1500",
+    "recommended": true
+  },
+  {
+    "id": 2,
+    "destination": "Santorini",
+    "country": "Greece",
+    "activity": "Exploring the Caldera",
+    "priority": "Medium",
+    "duration": "5 days",
+    "budget": "$2000",
+    "recommended": true
+  },
+  {
+    "id": 3,
+    "destination": "Kyoto",
+    "country": "Japan",
+    "activity": "Cherry Blossom Viewing",
+    "priority": "High",
+    "duration": "4 days",
+    "budget": "$1800",
+    "recommended": false
+  },
+  {
+    "id": 4,
+    "destination": "Banff National Park",
+    "country": "Canada",
+    "activity": "Hiking and Wildlife",
+    "priority": "Medium",
+    "duration": "6 days",
+    "budget": "$2500",
+    "recommended": true
+  },
+  {
+    "id": 5,
+    "destination": "Grand Canyon",
+    "country": "USA",
+    "activity": "Rafting the Colorado River",
+    "priority": "High",
+    "duration": "3 days",
+    "budget": "$1200",
+    "recommended": false
+  },
+  {
+    "id": 6,
+    "destination": "Reykjavik",
+    "country": "Iceland",
+    "activity": "Northern Lights Tour",
+    "priority": "High",
+    "duration": "4 days",
+    "budget": "$2200",
+    "recommended": true
+  },
+  {
+    "id": 7,
+    "destination": "Amsterdam",
+    "country": "Netherlands",
+    "activity": "Canal Cruise and Museums",
+    "priority": "Medium",
+    "duration": "5 days",
+    "budget": "$1800",
+    "recommended": false
+  },
+  {
+    "id": 8,
+    "destination": "Bora Bora",
+    "country": "French Polynesia",
+    "activity": "Overwater Bungalow Stay",
+    "priority": "High",
+    "duration": "7 days",
+    "budget": "$3500",
+    "recommended": true
+  },
+  {
+    "id": 9,
+    "destination": "Barcelona",
+    "country": "Spain",
+    "activity": "Gaudi Architecture Tour",
+    "priority": "Medium",
+    "duration": "4 days",
+    "budget": "$2000",
+    "recommended": false
+  },
+  {
+    "id": 10,
+    "destination": "Cape Town",
+    "country": "South Africa",
+    "activity": "Table Mountain Hike",
+    "priority": "High",
+    "duration": "6 days",
+    "budget": "$2400",
+    "recommended": true
+  }
+]
