@@ -4,6 +4,26 @@ class APIFeatures {
     this.queryString = queryString;
   }
 
+  search() {
+    if (this.queryString.search) {
+      const searchRegex = new RegExp(`^${this.queryString.search}$`, 'i');
+
+      // Create a $or query for each field
+      const orQueries = Object.keys(this.query.model.schema.paths)
+        .filter(
+          (field) => this.query.model.schema.paths[field].instance === 'String',
+        ) // Filter only string fields
+        .map((field) => ({ [field]: { $regex: searchRegex } }));
+
+      // Apply the $or queries to the main query
+      if (orQueries.length > 0) {
+        this.query = this.query.or(orQueries);
+      }
+    }
+
+    return this;
+  }
+
   filter() {
     // Build Query
     // 1A> Filtering

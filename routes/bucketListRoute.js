@@ -1,10 +1,10 @@
 const express = require('express');
 
-const bucketListController = require('./../controller/bucketListController');
+const bucketListController = require('../controller/bucketListController');
 
 const router = express.Router();
 
-router.param('id', bucketListController.checkId);
+// router.param('id', bucketListController.checkId);
 
 router
   .route('/')
