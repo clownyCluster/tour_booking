@@ -4,9 +4,7 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    console.log(req.params.id);
     const doc = await Model.findByIdAndDelete(req.params.id);
-    console.log(doc);
     if (!doc) {
       return next(
         new AppError('No document found with that associated Id', 400),
@@ -53,7 +51,6 @@ exports.createOne = (Model) =>
 
 exports.findOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
-    console.log(req.params);
     // const id = JSON.stringify(req.params.id);
     let query = Model.findById(req.params.id);
     if (popOptions) query = query.populate(popOptions);

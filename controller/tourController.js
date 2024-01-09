@@ -54,10 +54,9 @@ exports.getTourStats = catchAsync(async (req, res) => {
 });
 
 exports.getMonthlyPlan = catchAsync(async (req, res) => {
-  console.log(req.params);
   const year = req.params.year * 1;
 
-  const plan = await Tour.aggregate([
+  await Tour.aggregate([
     {
       $match: {
         startDates: {
@@ -68,5 +67,5 @@ exports.getMonthlyPlan = catchAsync(async (req, res) => {
     },
   ]);
 
-  console.log('Aggregation Result:', plan);
+  // console.log('Aggregation Result:', plan);
 });

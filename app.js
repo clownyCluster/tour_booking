@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
+// eslint-disable-next-line camelcase
 const mongo_sanitizer = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');

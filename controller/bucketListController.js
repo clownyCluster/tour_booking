@@ -14,8 +14,6 @@ const factory = require('./handlerFactory');
 
 exports.searchBucketList = (req, res) => {
   const query = req.query.country;
-  console.log(query);
-
   const searchedList = BucketList.find((el) => el.country === query);
 
   if (!searchedList) {
