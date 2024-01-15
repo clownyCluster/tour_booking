@@ -70,6 +70,13 @@ app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bucket-list', bucketListRouter);
 app.use('/api/v1/course', courseRouter);
 
+app.get('/', (req,res)=>{
+  res.status(200).send({
+    status: 'Success',
+    message: 'Hello from the server'
+  })
+})
+
 app.all('*', (req, res, next) => {
   next(
     new AppError(`Can't find the url ${req.originalUrl} on this server!`, 404),
