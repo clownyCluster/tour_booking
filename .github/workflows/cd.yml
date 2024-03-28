@@ -18,7 +18,7 @@ jobs:
           node-version: '18'
 
       - name: Install Railway CLI
-        run: npm install -g @railway/cli@3.5.2
+        run: npm install -g @railway/cli
 
       #   - name: Log in to Railway
       #     env:
