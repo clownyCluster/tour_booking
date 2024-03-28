@@ -24,11 +24,11 @@ jobs:
     #     env:
     #       RAILWAY_TOKEN: ${{ secrets.SECRET_RAILWAY }}
     #     run: railway login
-    
+
       - name: Set Railway Token
         env:
           RAILWAY_TOKEN: ${{ secrets.SECRET_RAILWAY }}
-        run: railway login
+        run: railway login --headless
 
       - name: Deploy to Railway
         run: railway up
