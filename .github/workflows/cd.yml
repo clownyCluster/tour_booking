@@ -23,7 +23,7 @@ jobs:
       - name: Log in to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway login
+        run: railway login --interactive
 
       - name: Deploy to Railway
         run: railway up
