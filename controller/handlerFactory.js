@@ -89,8 +89,6 @@ exports.findAll = (Model) =>
       status: 'Success',
       requestedAt: req.requestedTime,
       length: doc.length,
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
