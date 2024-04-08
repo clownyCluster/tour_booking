@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+// const upload = multer({ storage });
+
 const authController = require('../controller/authController');
 
 const userController = require('../controller/userController');
@@ -18,7 +20,11 @@ router.use(authController.protect);
 router.patch('/updatePassword', authController.updatePassword);
 
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', userController.updateMe);
+router.patch(
+  '/updateMe',
+  userController.uploadUserPhoto,
+  userController.updateMe,
+);
 router.delete('/deleteMe', userController.deleteUser);
 
 // Restrict this to only other members apart from normal user.

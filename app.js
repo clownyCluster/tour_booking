@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const mongo_sanitizer = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const bodyParser = require('body-parser');
 
 const tourRouter = require('./routes/tourRoute');
 const userRouter = require('./routes/userRoute');
@@ -15,6 +16,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controller/errorController');
 
 const bucketListRouter = require('./routes/bucketListRoute');
+const bookingRouter = require('./routes/bookingRoute');
 
 // 1 . Specify Middleware
 
@@ -57,6 +59,9 @@ app.use(
 // Reading static files
 app.use(express.static(`${__dirname}/public`));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
+
 // Test Middleware
 app.use((req, res, next) => {
   req.requestedTime = new Date().toISOString();
@@ -69,6 +74,7 @@ app.use('/api/v1/reviews', reviewRouter);
 
 app.use('/api/v1/bucket-list', bucketListRouter);
 app.use('/api/v1/course', courseRouter);
+app.use('/api/v1/booking', bookingRouter);
 
 app.get('/', (req, res) => {
   res.status(200).send({

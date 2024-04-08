@@ -12,6 +12,10 @@ const {
   deleteTour,
   getTourStats,
   getMonthlyPlan,
+  getToursWithin,
+  getDistance,
+  resizeTourImages,
+  uploadTourImages,
   // checkBody,
 } = require('../controller/tourController');
 
@@ -36,6 +40,12 @@ router
   );
 
 router
+  .route('/tours-within/:distance/center/:center/unit/:unit')
+  .get(getToursWithin);
+
+router.route('/distances/:latlng/unit/:unit').get(getDistance);
+
+router
   .route('/')
   .get(getTour)
   .post(
@@ -50,6 +60,8 @@ router
   .patch(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),
+    uploadTourImages,
+    resizeTourImages,
     updateTOur,
   )
   .delete(
