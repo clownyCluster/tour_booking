@@ -38,77 +38,54 @@ exports.signUp = catchAsync(async (req, res, next) => {
 });
 
 // exports.login = catchAsync(async (req, res, next) => {
+//   console.log(req.body);
 //   const { email, password } = req.body;
 
-//   // 1) Check if email and password exists
+//   // 1) Check if email and password exist
 //   if (!email || !password) {
 //     return next(new AppError('Email or password cannot be empty', 401));
 //   }
-//   // 2) Check if user exists and password is correct
 
+//   // 2) Check if user exists
 //   const user = await User.findOne({ email: email }).select('+password');
 //   if (!user) {
 //     return next(new AppError('No account found with that email.', 401));
 //   }
-//   //   3) If everything is ok, send back token and login
 
+//   // Check if the account is currently locked
+//   if (user.lockUntil && user.lockUntil > Date.now()) {
+//     return next(
+//       new AppError('Account is locked. Please try again later.', 401),
+//     );
+//   }
+
+//   // 3) Check if password is correct
 //   const correct = await user.correctPassword(password, user.password);
 
 //   if (!correct) {
+//     // Update login attempts and check if the account should be locked
+//     user.loginAttempts += 1;
+//     if (user.loginAttempts >= 5) {
+//       user.lockUntil = Date.now() + 60 * 60 * 1000; // Lock the account for an hour
+//       user.loginAttempts = 0; // Reset login attempts
+//       await user.save({ validateBeforeSave: false });
+//       return next(
+//         new AppError('Account is locked. Please try again later.', 401),
+//       );
+//     }
+
+//     await user.save({ validateBeforeSave: false });
+
 //     return next(new AppError('Please enter correct password', 401));
 //   }
+
+//   // Reset login attempts on successful login
+//   user.loginAttempts = 0;
+//   await user.save({ validateBeforeSave: false });
+
+//   // 4) If everything is OK, send back token and login
 //   createAndSendToken(user, 200, res);
 // });
-
-exports.login = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-  const { email, password } = req.body;
-
-  // 1) Check if email and password exist
-  if (!email || !password) {
-    return next(new AppError('Email or password cannot be empty', 401));
-  }
-
-  // 2) Check if user exists
-  const user = await User.findOne({ email: email }).select('+password');
-  if (!user) {
-    return next(new AppError('No account found with that email.', 401));
-  }
-
-  // Check if the account is currently locked
-  if (user.lockUntil && user.lockUntil > Date.now()) {
-    return next(
-      new AppError('Account is locked. Please try again later.', 401),
-    );
-  }
-
-  // 3) Check if password is correct
-  const correct = await user.correctPassword(password, user.password);
-
-  if (!correct) {
-    // Update login attempts and check if the account should be locked
-    user.loginAttempts += 1;
-    if (user.loginAttempts >= 5) {
-      user.lockUntil = Date.now() + 60 * 60 * 1000; // Lock the account for an hour
-      user.loginAttempts = 0; // Reset login attempts
-      await user.save({ validateBeforeSave: false });
-      return next(
-        new AppError('Account is locked. Please try again later.', 401),
-      );
-    }
-
-    await user.save({ validateBeforeSave: false });
-
-    return next(new AppError('Please enter correct password', 401));
-  }
-
-  // Reset login attempts on successful login
-  user.loginAttempts = 0;
-  await user.save({ validateBeforeSave: false });
-
-  // 4) If everything is OK, send back token and login
-  createAndSendToken(user, 200, res);
-});
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Check If token is send by the client
@@ -173,13 +150,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       new AppError('No ID was found associated with that email', 404),
     );
   }
-
-  // 2. Generate 6-digit OTP
-  // const otp = otpGenerator.generate(6, {
-  //   upperCase: false,
-  //   specialChars: false,
-  //   alphabets: false,
-  // });
 
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -349,3 +319,27 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 //     },
 //   });
 // });
+
+/// //    Login
+exports.login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // 1) Check if email and password exists
+  if (!email || !password) {
+    return next(new AppError('Email or password cannot be empty', 401));
+  }
+  // 2) Check if user exists and password is correct
+
+  const user = await User.findOne({ email: email }).select('+password');
+  if (!user) {
+    return next(new AppError('No account found with that email.', 401));
+  }
+  //   3) If everything is ok, send back token and login
+
+  const correct = await user.correctPassword(password, user.password);
+
+  if (!correct) {
+    return next(new AppError('Please enter correct password', 401));
+  }
+  createAndSendToken(user, 200, res);
+});

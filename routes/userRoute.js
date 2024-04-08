@@ -9,8 +9,9 @@ const authController = require('../controller/authController');
 const userController = require('../controller/userController');
 // app.use('/api/v1/users', router);
 
-router.post('/signup', authController.signUp);
 router.post('/login', authController.login);
+
+router.post('/signup', authController.signUp);
 router.patch('/resetPassword/:token', authController.resetPassword);
 router.post('/forgotPassword', authController.forgotPassword);
 
