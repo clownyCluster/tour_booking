@@ -31,9 +31,7 @@ exports.updateOne = (Model) =>
     res.send({
       status: 'success',
       message: 'Document updated successfully',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
@@ -44,9 +42,7 @@ exports.createOne = (Model) =>
 
     res.status(201).send({
       status: 'success',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
@@ -65,9 +61,7 @@ exports.findOne = (Model, popOptions) =>
     res.status(200).send({
       success: true,
       message: 'fetch successful',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
