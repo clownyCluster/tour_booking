@@ -7,6 +7,7 @@ const mongo_sanitizer = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const bodyParser = require('body-parser');
+const { Readable } = require('stream');
 
 const tourRouter = require('./routes/tourRoute');
 const userRouter = require('./routes/userRoute');
@@ -55,6 +56,41 @@ app.use(
     ],
   }),
 );
+
+class NumberStream extends Readable {
+  constructor(options) {
+    super(options);
+    this.currentNumber = 0;
+    this.interval = options.interval || 1000; // default interval is 1 second
+    this.timer = setInterval(() => {
+      const data = {
+        status: 'success',
+        number: this.currentNumber + 1,
+      };
+      this.push(JSON.stringify(data));
+      // eslint-disable-next-line no-unused-expressions
+      this.currentNumber + 1;
+    }, this.interval);
+
+    // When the stream ends, clear the interval
+    this.on('end', () => {
+      clearInterval(this.timer);
+    });
+  }
+
+  _read() {}
+}
+
+// app.get('/numbers', (req, res) => {
+//   const numberStream = new NumberStream({ interval: 1000 }); // Change interval as needed
+//   numberStream.pipe(res);
+// });
+app.get('/numbers', (req, res) => {
+  const numberStream = new NumberStream({ interval: 10 });
+  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Transfer-Encoding', 'chunked');
+  numberStream.pipe(res);
+});
 
 // Reading static files
 app.use(express.static(`${__dirname}/public`));
