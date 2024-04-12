@@ -61,13 +61,14 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 exports.aliasCheapTours = (req, res, next) => {
   req.query.limit = 5;
   req.query.sort = 'price,-ratingsAverage';
-  req.query.fields = 'name,price,duration,difficulty,ratingsAverage,summary';
+  req.query.fields =
+    'name,price,duration,difficulty,ratingsAverage,summary,imageCover';
   next();
 };
 
 exports.aliasHotTours = (req, res, next) => {
   req.query.limit = 5;
-  req.query.fields = 'name,price,duration,ratingsAverage,summary';
+  req.query.fields = 'name,price,duration,ratingsAverage,summary,imageCover';
   req.query.sort = '-ratingsAverage,price';
   next();
 };

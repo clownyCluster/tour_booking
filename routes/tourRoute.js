@@ -31,6 +31,7 @@ router.use('/:tourId/reviews', reviewRouter);
 router.route('/top-five-cheap').get(aliasCheapTours, getTour);
 router.route('/top-five-hot').get(aliasHotTours, getTour);
 router.route('/tour-stats').get(getTourStats);
+
 router
   .route('/monthly-plan/:year')
   .get(
